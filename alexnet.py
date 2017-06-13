@@ -9,6 +9,8 @@ Link:
 - https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks
 '''
 
+__author__ = 'Rahul Bhalley'
+
 import tensorflow as tf
 
 n_inputs = 227 * 227 # number of input vector elements i.e. pixels per training example
