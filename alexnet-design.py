@@ -33,14 +33,14 @@ def alex_net(img, weights, biases):
     conv1 = tf.nn.bias_add(conv1, biases["bc1"])
     conv1 = tf.nn.relu(conv1)
     conv1 = tf.nn.local_response_normalization(conv1, depth_radius=5.0, bias=2.0, alpha=1e-4, beta=0.75)
-    conv1 = tf.nn.max_pool(conv1, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding="SAME")
+    conv1 = tf.nn.max_pool(conv1, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding="VALID")
 
     # 2nd convolutional layer
     conv2 = tf.nn.conv2d(conv1, weights["wc2"], strides=[1, 1, 1, 1], padding="SAME", name="conv2")
     conv2 = tf.nn.bias_add(conv2, biases["bc2"])
     conv2 = tf.nn.relu(conv2)
     conv2 = tf.nn.local_response_normalization(conv2, depth_radius=5.0, bias=2.0, alpha=1e-4, beta=0.75)
-    conv2 = tf.nn.max_pool(conv2, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding="SAME")
+    conv2 = tf.nn.max_pool(conv2, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding="VALID")
 
     # 3rd convolutional layer
     conv3 = tf.nn.conv2d(conv2, weights["wc3"], strides=[1, 1, 1, 1], padding="SAME", name="conv3")
@@ -56,7 +56,7 @@ def alex_net(img, weights, biases):
     conv5 = tf.nn.conv2d(conv4, weights["wc5"], strides=[1, 1, 1, 1], padding="SAME", name="conv5")
     conv5 = tf.nn.bias_add(conv5, biases["bc5"])
     conv5 = tf.nn.relu(conv5)
-    conv5 = tf.nn.max_pool(conv5, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding="SAME")
+    conv5 = tf.nn.max_pool(conv5, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding="VALID")
 
     # stretching out the 5th convolutional layer into a long n-dimensional tensor
     shape = [-1, weights['wf1'].get_shape().as_list()[0]]
