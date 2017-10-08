@@ -13,7 +13,7 @@ __author__ = 'Rahul Bhalley'
 
 import tensorflow as tf
 
-n_inputs = 227 * 227 # number of input vector elements i.e. pixels per training example
+n_inputs = 227 * 227 * 3 # number of input vector elements i.e. pixels per training example
 n_classes = 1000 # number of classes to be classified
 
 # input and output vector placeholders
