@@ -6,7 +6,5 @@ This is the implementation of AlexNet architecture as devised in the original pa
 ## Note
 This is only the AlexNet architecture and does not include the training process.
 
-[//]: # (*Will add transfer learning with pretrained model in May 2018*)
-
 ## Related Paper 📝
 [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks)
