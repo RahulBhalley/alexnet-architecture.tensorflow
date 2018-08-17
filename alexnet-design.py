@@ -58,18 +58,18 @@ def alex_net(img, weights, biases):
     conv5 = tf.nn.relu(conv5)
     conv5 = tf.nn.max_pool(conv5, ksize=[1, 3, 3, 1], strides=[1, 2, 2, 1], padding="VALID")
 
-    # stretching out the 5th convolutional layer into a long n-dimensional tensor
+    # stretching out the 5th convolutional layer into a long vector
     shape = [-1, weights['wf1'].get_shape().as_list()[0]]
     flatten = tf.reshape(conv5, shape)
 
     # 1st fully connected layer
     fc1 = fc_layer(flatten, weights["wf1"], biases["bf1"], name="fc1")
-    fc1 = tf.nn.tanh(fc1)
+    fc1 = tf.nn.relu(fc1)
     fc1 = tf.nn.dropout(fc1, keep_prob=0.5)
 
     # 2nd fully connected layer
     fc2 = fc_layer(fc1, weights["wf2"], biases["bf2"], name="fc2")
-    fc2 = tf.nn.tanh(fc2)
+    fc2 = tf.nn.relu(fc2)
     fc2 = tf.nn.dropout(fc2, keep_prob=0.5)
 
     # 3rd fully connected layer
@@ -93,12 +93,12 @@ weights = {
 
 # Bias parameters as devised in the original research paper
 biases = {
-    "bc1": tf.Variable(tf.constant(0.0, shape=[96]), name="bc1"),
-    "bc2": tf.Variable(tf.constant(1.0, shape=[256]), name="bc2"),
-    "bc3": tf.Variable(tf.constant(0.0, shape=[384]), name="bc3"),
-    "bc4": tf.Variable(tf.constant(1.0, shape=[384]), name="bc4"),
-    "bc5": tf.Variable(tf.constant(1.0, shape=[256]), name="bc5"),
-    "bf1": tf.Variable(tf.constant(1.0, shape=[4096]), name="bf1"),
-    "bf2": tf.Variable(tf.constant(1.0, shape=[4096]), name="bf2"),
+    "bc1": tf.Variable(tf.constant(0.0, shape=[96]),        name="bc1"),
+    "bc2": tf.Variable(tf.constant(1.0, shape=[256]),       name="bc2"),
+    "bc3": tf.Variable(tf.constant(0.0, shape=[384]),       name="bc3"),
+    "bc4": tf.Variable(tf.constant(1.0, shape=[384]),       name="bc4"),
+    "bc5": tf.Variable(tf.constant(1.0, shape=[256]),       name="bc5"),
+    "bf1": tf.Variable(tf.constant(1.0, shape=[4096]),      name="bf1"),
+    "bf2": tf.Variable(tf.constant(1.0, shape=[4096]),      name="bf2"),
     "bf3": tf.Variable(tf.constant(1.0, shape=[n_classes]), name="bf3")
 }
